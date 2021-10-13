@@ -1,0 +1,66 @@
+name: "static analysis"
+
+on: 
+  workflow_call:
+    secrets:
+      SNOW_ALERT_WEBHOOK: 
+        required: true
+      CHECKPOINT_TOKEN: 
+        required: true
+      SNOW_AWS_ACCESS_KEY_ID:
+        required: false
+      SNOW_AWS_SECRET_ACCESS_KEY:
+        required: false
+
+jobs:
+  scan-with-semgrep:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    env:
+      working-directory: snow
+      env: snow-test
+      SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
+      CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
+      SNOW_AWS_ACCESS_KEY_ID: ${{ secrets.SNOW_AWS_ACCESS_KEY_ID }}
+      SNOW_AWS_SECRET_ACCESS_KEY: ${{ secrets.SNOW_AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - name: Clone snow code
+        uses: actions/checkout@v2
+        with:
+          repository: 'tinyspeck/snow'
+          path: snow
+          fetch-depth: 0
+
+      - name: Check out repository code
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository }}
+          path: snow/repo
+          fetch-depth: 0
+
+      - name: move repository code to correct dir
+        run: |
+          cd ${{ env.working-directory }}
+          mkdir -p repositories/${{ github.event.repository.name }}
+          mv repo/.[!.]* repositories/${{ github.event.repository.name }}
+
+      - name: Install python3
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.5.10
+
+      - name: install requirements
+        run: |
+          cd ${{ env.working-directory }}
+          python3 -m pip install -r requirements.txt
+
+      - name: Run semgrep
+        run: |
+          cd ${{ env.working-directory }}
+          python3 run_semgrep.py -m pr -g ghc -r ${{ github.event.repository.name }}
+
+      - name: Archive scan results
+        uses: actions/upload-artifact@v2
+        with:
+            name: results folder
+            path: results/*

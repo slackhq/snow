@@ -1,0 +1,6 @@
+future-fstrings
+tokenize-rt
+pyyaml
+pytest
+boto3
+requests

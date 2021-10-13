@@ -1,0 +1,16 @@
+{
+    "da39a3ee5e6b4b0d3255bfef95601890afd80700": 
+    {
+        "message": "message from semgrep",
+        "check_id": "languages.golang.r2c.go.lang.security.bad-tmp-file-creation",
+        "location": "location at time of scan",
+        "reason": "some reason"
+    },
+    "ca39a3ee5e6b4b0d3255bfef95601890afd80710":
+    {
+        "message": "message from semgrep",
+        "check_id": "languages.golang.r2c.go.lang.security.bad-tmp-file-creation",
+        "location": "location at time of scan",
+        "reason": "some reason"
+    }
+}

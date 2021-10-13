@@ -1,0 +1,15 @@
+name: "Static Analysis Daily Scan"
+
+on:
+  push:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  daily_static_analysis:
+    uses: tinyspeck/snow/.github/workflows/daily_scan.yaml@dry-it-up
+    secrets:       
+      SNOW_ALERT_WEBHOOK: ${{ secrets.SNOW_ALERT_WEBHOOK }}
+      CHECKPOINT_TOKEN: ${{ secrets.CHECKPOINT_TOKEN }}
+      SNOW_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      SNOW_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
