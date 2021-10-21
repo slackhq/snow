@@ -759,7 +759,7 @@ if __name__ == '__main__':
         "--git",
         help=(
             "the github url you wish to scan. Supported options: ghe (github"
-            " enterprise) and ghc (githib.com)"
+            " enterprise) and ghc (github.com)"
         ),
         required=True,
     )
