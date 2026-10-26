@@ -1,3 +1,5 @@
+# This repository is unmaintained, deprecated and will be archived.
+
 # SNOW (Static aNalysis nOn Webapp)
 
 This repo is the home of static code analysis tooling for repositories that are not covered by Slack's monolith repo webapp, hence the name. However, it now covers webapp, and we're keeping the name. Let it snow!
