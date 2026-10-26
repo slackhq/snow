@@ -4,3 +4,4 @@ pyyaml
 pytest
 boto3
 requests
+certifi>=2026.10.19

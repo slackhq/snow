@@ -62,7 +62,7 @@ jobs:
       - name: Install python3
         uses: actions/setup-python@v2
         with:
-          python-version: 3.5.10
+          python-version: '3.11'
 
       - name: install requirements
         run: |
